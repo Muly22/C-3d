@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "render.h": "c",
+        "vec2.h": "c"
+    }
+}

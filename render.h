@@ -11,7 +11,7 @@ char *window_bufer;
 unsigned short int h;
 unsigned short int w;
 void check_h_w(unsigned short int*,unsigned short int*);
-void clean(void);
+void clean();
 void print_line2d(const vec2*,const vec2*);
 void check_h_w(unsigned short int *h,unsigned short int *w){
     HANDLE hStdHnd = GetStdHandle(STD_OUTPUT_HANDLE); 
@@ -21,7 +21,7 @@ void check_h_w(unsigned short int *h,unsigned short int *w){
     *w = consbuff.srWindow.Right + 1;
     window_bufer = (char*) calloc(*w * *h, sizeof(char));
 }
-void clean(void){
+void clean(){
     for (size_t i = 0; i < h; i++)
     {
         for (size_t j = 0; j < w; j++)

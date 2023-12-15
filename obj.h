@@ -39,7 +39,7 @@ obj read_obj(char* ref){
     new_obj.v = NULL;
     new_obj.l = NULL;
     FILE* fp = fopen(ref, "r");
-    char buff[1000][200];
+    char buff[10000][200];
     if (fp)
     {
         int i = 0;
@@ -77,8 +77,8 @@ obj read_obj(char* ref){
             int b;
             sscanf(buff[j], "l %i %i", &a, &b);
             new_obj.l = (index*) realloc((void*)new_obj.l,sizeof(index) * (l + 1));
-            new_obj.l[l].a = a;
-            new_obj.l[l].b = b;
+            new_obj.l[l].a = a - 1;
+            new_obj.l[l].b = b - 1;
             //printf("%i", l);
             l++;
                 break;
@@ -118,9 +118,17 @@ world* read_obj_dir(const char ref[20]){
         closedir(dir);
         new_world.c_objs = count;
     }
-    /*for (size_t i = 0; i < new_world.c_objs; i++)
+    for (size_t i = 0; i < new_world.c_objs; i++)
     {
         printf("name: %s vertices: %i edges: %i\n",new_world.objs[i].name, new_world.objs[i].c_v,new_world.objs[i].c_l);
-    }*/
+        for (size_t v = 0; v < new_world.objs[i].c_v; v++)
+        {
+            printf("%f %f %f\n", new_world.objs[i].v[v].x,new_world.objs[i].v[v].y,new_world.objs[i].v[v].z);
+        }
+        for (size_t l = 0; l < new_world.objs[i].c_l; l++)
+        {
+            printf("%i %i\n", new_world.objs[i].l[l].a,new_world.objs[i].l[l].b);
+        }
+    }
     return &new_world;
 }

@@ -46,7 +46,7 @@ vec3 mul_vec3(vec3, vec3);
 vec2 mul_vec2(vec2, vec2);
 
 int main(int argc, char* argv[]){
-    check_h_w(&h,&w);
+    h = 30, w = 120;
     char ref[20] = "obj";
     myworld = read_obj_dir(ref);
     camera.pos.x =-4;camera.pos.y = 0;camera.pos.z = 0;camera.rotat.x = 1;camera.rotat.y = 0;camera.rotat.z = 0;

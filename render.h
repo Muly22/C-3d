@@ -1,4 +1,3 @@
-#include <windows.h>
 #include <unistd.h>
 
 typedef struct 
@@ -10,18 +9,8 @@ typedef struct
 char *window_bufer;
 unsigned short int h;
 unsigned short int w;
-void check_h_w(unsigned short int*,unsigned short int*);
 void clean();
 void print_line2d(const vec2*,const vec2*);
-void check_h_w(unsigned short int *h,unsigned short int *w)
-{
-    HANDLE hStdHnd = GetStdHandle(STD_OUTPUT_HANDLE); 
-    CONSOLE_SCREEN_BUFFER_INFO consbuff; 
-    GetConsoleScreenBufferInfo(hStdHnd,&consbuff);
-    *h = consbuff.srWindow.Bottom;
-    *w = consbuff.srWindow.Right + 1;
-    window_bufer = (char*) calloc(*w * *h, sizeof(char));
-}
 void clean()
 {
     for (size_t i = 0; i < h; i++)

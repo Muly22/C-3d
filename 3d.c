@@ -24,7 +24,7 @@ struct Matrix3x3{
     float _32;
     float _33;
 };
-typedef struct Matrix3x3 Matrix3x3;
+typedef struct Matrix3x3 Matrix3x3_t;
 struct camera
 {
     vec3 pos;
@@ -36,9 +36,9 @@ void rotate_obj(obj*, float, enum Basis);
 vec3 origin_point(const obj*);
 vec3 move_vec3(vec3, vec3);
 vec3 rotate_vec3(vec3, float, enum Basis);
-vec3 mul_Matrix3x3_vec3(const Matrix3x3*,const vec3*);
-Matrix3x3 sum_Matrix3x3(const Matrix3x3*,const Matrix3x3*);
-Matrix3x3 mul_Matrix3x3(const Matrix3x3*,const Matrix3x3*);
+vec3 mul_Matrix3x3_vec3(const Matrix3x3_t*,const vec3*);
+Matrix3x3_t sum_Matrix3x3(const Matrix3x3_t*,const Matrix3x3_t*);
+Matrix3x3_t mul_Matrix3x3(const Matrix3x3_t*,const Matrix3x3_t*);
 vec3 sum_vec3(vec3, vec3);
 vec3 div_vec3(vec3, vec3);
 vec3 sub_vec3(vec3, vec3);
@@ -46,7 +46,6 @@ vec3 mul_vec3(vec3, vec3);
 vec2 mul_vec2(vec2, vec2);
 
 int main(int argc, char* argv[]){
-    h = 30, w = 120;
     char ref[20] = "obj";
     myworld = read_obj_dir(ref);
     camera.pos.x =-4;camera.pos.y = 0;camera.pos.z = 0;camera.rotat.x = 1;camera.rotat.y = 0;camera.rotat.z = 0;
@@ -71,10 +70,7 @@ int main(int argc, char* argv[]){
             obj* obj = &myworld->objs[i];
             for (size_t l = 0; l < obj->c_l; l++)
             {
-                if ((!(screen[obj->l[l].a].x >= 1 || screen[obj->l[l].a].x <= -1 || screen[obj->l[l].a].y >= 1 || screen[obj->l[l].a].y <= -1)) || (!(screen[obj->l[l].b].x >= 1 || screen[obj->l[l].b].x <= -1 || screen[obj->l[l].b].y >= 1 || screen[obj->l[l].b].y <= -1)))
-                {
-                    print_line2d(&screen[obj->l[l].a], &screen[obj->l[l].b]);
-                }
+                print_line2d(&screen[obj->l[l].a], &screen[obj->l[l].b]);
             }
         }
         printf("%s", window_bufer);
@@ -82,8 +78,8 @@ int main(int argc, char* argv[]){
 return 0;
 }
 
-Matrix3x3 sum_Matrix3x3(const Matrix3x3* A,const Matrix3x3* B){
-    Matrix3x3 C = {
+Matrix3x3_t sum_Matrix3x3(const Matrix3x3_t* A,const Matrix3x3_t* B){
+    Matrix3x3_t C = {
     A->_11 + B->_11,
     A->_12 + B->_12,
     A->_13 + B->_13,
@@ -95,8 +91,8 @@ Matrix3x3 sum_Matrix3x3(const Matrix3x3* A,const Matrix3x3* B){
     A->_33 + B->_33};
     return C;
 }
-Matrix3x3 mul_Matrix3x3(const Matrix3x3* A,const Matrix3x3* B){
-    Matrix3x3 C = {
+Matrix3x3_t mul_Matrix3x3(const Matrix3x3_t* A,const Matrix3x3_t* B){
+    Matrix3x3_t C = {
     A->_11 * B->_11 + A->_12 * B->_21 + A->_13* B->_31,
     A->_11 * B->_12 + A->_12 * B->_22 + A->_13* B->_32,
     A->_11 * B->_13 + A->_12 * B->_23 + A->_13* B->_33,
@@ -108,7 +104,7 @@ Matrix3x3 mul_Matrix3x3(const Matrix3x3* A,const Matrix3x3* B){
     A->_31 * B->_33 + A->_32 * B->_23 + A->_33* B->_33,};
     return C;
 }
-vec3 mul_Matrix3x3_vec3(const Matrix3x3* A,const vec3* B){
+vec3 mul_Matrix3x3_vec3(const Matrix3x3_t* A,const vec3* B){
     vec3 C = 
     {A->_11*B->x + A->_12*B->y + A->_13*B->z,
      A->_21*B->x + A->_22*B->y + A->_23*B->z,
@@ -172,19 +168,19 @@ vec3 rotate_vec3(vec3 rotat, float angle, enum Basis basis){
     switch (basis)
     {
     case Xasis:
-        Matrix3x3 Xasis = {1,0,         0,
+        Matrix3x3_t Xasis = {1,0,         0,
                            0,cos(angle),-sin(angle),
                            0,sin(angle),cos(angle)};
         return mul_Matrix3x3_vec3(&Xasis, &rotat);
         break;
     case Zasis:
-        Matrix3x3 Zasis = {cos(angle),0,sin(angle),
+        Matrix3x3_t Zasis = {cos(angle),0,sin(angle),
                            0,         1,         0,
                           -sin(angle),0,cos(angle)};
         return mul_Matrix3x3_vec3(&Zasis, &rotat);
         break;
     case Yasis:
-        Matrix3x3 Yasis = {cos(angle),-sin(angle),0,
+        Matrix3x3_t Yasis = {cos(angle),-sin(angle),0,
                            sin(angle),cos(angle), 0,
                            0,         0,          1};
         return mul_Matrix3x3_vec3(&Yasis, &rotat);

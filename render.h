@@ -6,9 +6,9 @@ typedef struct
     float y;
 }vec2;
 
-char *window_bufer;
-unsigned short int h;
-unsigned short int w;
+char window_bufer[h * w];
+#define h 30
+#define w 120
 void clean();
 void print_line2d(const vec2*,const vec2*);
 void clean()

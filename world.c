@@ -1,44 +1,36 @@
-#include <stdio.h>
-#include <dirent.h>
-#include <string.h>
-#include <stdlib.h>
+#include "world.h"
 
-struct vec3
-{
-    float x;
-    float y;
-    float z;
-};
+#define PATH_TO_OBJ_DIR "obj"
 
-struct index
-{
-    int a;
-    int b;
-};
+static void read_obj( char *path, obj_t *entity );
+static void read_obj_dir( onst char[20] );
 
-struct obj
-{
-    char name[20];
-    vec3_t* v;
-    index_t* l;
-    int c_v;
-    int c_l;
-    vec3_t orig;
-};
+vec3_t origin_point(const obj_t* my_obj){
+    vec3_t origin;
+    for (size_t i = 0; i < my_obj->c_v; i++)
+    {
+        origin = sum_vec3(origin,my_obj->v[i]);
+    }
+    origin.x /= my_obj->c_v;
+    origin.y /= my_obj->c_v;
+    origin.z /= my_obj->c_v;
+    return origin;
+}
 
-struct world
-{
-    obj_t* objs;
-    int c_objs;
-};
-
-typedef struct vec3 vec3_t;
-typedef struct index index_t;
-typedef struct obj obj_t;
-typedef struct world world_t;
-
-obj_t read_obj(char*);
-world_t* read_obj_dir(const char[20]);
+void rotate_obj(obj_t* my_obj, float angle, enum Basis basis){
+    vec3_t origin = origin_point(my_obj);
+    //printf("%f %f %f", origin.x,origin.y,origin.z);
+    for (size_t i = 0; i < my_obj->c_v; i++)
+    {
+        my_obj->v[i] = sum_vec3(rotate_vec3(sub_vec3(my_obj->v[i],origin),angle,basis),origin);
+    }
+}
+void move_obj(obj_t* my_obj, vec3_t movement){
+    for (size_t i = 0; i < my_obj->c_v; i++)
+    {
+        my_obj->v[i] = move_vec3(my_obj->v[i], movement);
+    }
+}
 
 obj_t read_obj(char* ref){
     obj_t new_obj;
@@ -98,7 +90,7 @@ obj_t read_obj(char* ref){
     return new_obj;
 }
 
-world_t* read_obj_dir(const char ref[20]){
+world_t* read_obj_dir(const char ref[20]){ 
     static world_t new_world;
     new_world.objs = NULL;
     new_world.c_objs = 0;

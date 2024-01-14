@@ -3,39 +3,45 @@
 #include <string.h>
 #include <stdlib.h>
 
-typedef struct 
+struct vec3
 {
     float x;
     float y;
     float z;
-}vec3;
+};
 
-typedef struct
+struct index
 {
     int a;
     int b;
-} index;
+};
 
-typedef struct 
+struct obj
 {
     char name[20];
-    vec3* v;
-    index* l;
+    vec3_t* v;
+    index_t* l;
     int c_v;
     int c_l;
-}obj;
+    vec3_t orig;
+};
 
-typedef struct
+struct world
 {
-    obj* objs;
+    obj_t* objs;
     int c_objs;
-} world;
+};
 
-obj read_obj(char*);
-world* read_obj_dir(const char[20]);
+typedef struct vec3 vec3_t;
+typedef struct index index_t;
+typedef struct obj obj_t;
+typedef struct world world_t;
 
-obj read_obj(char* ref){
-    obj new_obj;
+obj_t read_obj(char*);
+world_t* read_obj_dir(const char[20]);
+
+obj_t read_obj(char* ref){
+    obj_t new_obj;
     new_obj.v = NULL;
     new_obj.l = NULL;
     FILE* fp = fopen(ref, "r");
@@ -65,7 +71,7 @@ obj read_obj(char* ref){
             float y;
             float z;
             sscanf(buff[j], "v %f %f %f", &x, &y, &z);
-            new_obj.v = (vec3*) realloc((void*)new_obj.v,sizeof(vec3) * (v + 1));
+            new_obj.v = (vec3_t*) realloc((void*)new_obj.v,sizeof(vec3_t) * (v + 1));
             new_obj.v[v].x = x;
             new_obj.v[v].y = y;
             new_obj.v[v].z = z;
@@ -76,7 +82,7 @@ obj read_obj(char* ref){
             int a;
             int b;
             sscanf(buff[j], "l %i %i", &a, &b);
-            new_obj.l = (index*) realloc((void*)new_obj.l,sizeof(index) * (l + 1));
+            new_obj.l = (index_t*) realloc((void*)new_obj.l,sizeof(index_t) * (l + 1));
             new_obj.l[l].a = a - 1;
             new_obj.l[l].b = b - 1;
             //printf("%i", l);
@@ -92,8 +98,8 @@ obj read_obj(char* ref){
     return new_obj;
 }
 
-world* read_obj_dir(const char ref[20]){
-    static world new_world;
+world_t* read_obj_dir(const char ref[20]){
+    static world_t new_world;
     new_world.objs = NULL;
     new_world.c_objs = 0;
     char _ref[20];
@@ -109,9 +115,9 @@ world* read_obj_dir(const char ref[20]){
             strcat(_ref, "/");
             strcat(_ref, ent->d_name);
             printf("loading %s...\n",ent->d_name);
-            obj new_obj = read_obj(_ref);
+            obj_t new_obj = read_obj(_ref);
             printf("loaded %s { name: %s vertices: %i edges: %i}\n",ent->d_name,new_obj.name, new_obj.c_v,new_obj.c_l);
-            new_world.objs = (obj*) realloc((void*)new_world.objs,sizeof(obj) * (count + 1));
+            new_world.objs = (obj_t*) realloc((void*)new_world.objs,sizeof(obj_t) * (count + 1));
             new_world.objs[count] = new_obj;
             count++;
         }

@@ -1,23 +1,23 @@
 #include <unistd.h>
-
-typedef struct 
+#define h 30
+#define w 120
+struct vec2
 {
     float x;
     float y;
-}vec2;
-
+};
+typedef struct vec2 vec2_t;
 char window_bufer[h * w];
-#define h 30
-#define w 120
+
 void clean();
-void print_line2d(const vec2*,const vec2*);
+void print_line2d(const vec2_t*,const vec2_t*);
 void clean()
 {
     for (size_t i = 0; i < h; i++)
         for (size_t j = 0; j < w; j++)
             window_bufer[j + i * w] = ' ';
 }
-void print_line2d(const vec2* a,const vec2* b)
+void print_line2d(const vec2_t* a,const vec2_t* b)
 {
     int x1 = ((int)(a->x*w) + w)>>1;
     int x2 = ((int)(b->x*w) + w)>>1;

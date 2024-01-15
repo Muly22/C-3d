@@ -26,51 +26,66 @@ vec3_t rotate_vec3(vec3_t rotat, float angle, enum Basis basis)
         break;
     }
 }
-Matrix3x3_t mul_Matrix3x3(const Matrix3x3_t* A,const Matrix3x3_t* B){
-    Matrix3x3_t C = {
-    A->_11 * B->_11 + A->_12 * B->_21 + A->_13* B->_31,
-    A->_11 * B->_12 + A->_12 * B->_22 + A->_13* B->_32,
-    A->_11 * B->_13 + A->_12 * B->_23 + A->_13* B->_33,
-    A->_21 * B->_21 + A->_22 * B->_21 + A->_23* B->_31,
-    A->_21 * B->_22 + A->_22 * B->_22 + A->_23* B->_32,
-    A->_21 * B->_23 + A->_22 * B->_23 + A->_23* B->_33,
-    A->_31 * B->_31 + A->_32 * B->_21 + A->_33* B->_31,
-    A->_31 * B->_32 + A->_32 * B->_22 + A->_33* B->_32,
-    A->_31 * B->_33 + A->_32 * B->_23 + A->_33* B->_33,};
-    return C;
-}
-vec3_t mul_Matrix3x3_vec3(const Matrix3x3_t* A,const vec3_t* B){
-    vec3_t C = 
-    {A->_11*B->x + A->_12*B->y + A->_13*B->z,
-     A->_21*B->x + A->_22*B->y + A->_23*B->z,
-     A->_31*B->x + A->_32*B->y + A->_33*B->z,};
-    return C;
-}
-vec3_t sum_vec3(vec3_t A, vec3_t B){
-    vec3_t C ={A.x + B.x, A.y + B.y, A.z + B.z};
-    return C;
-}
-vec3_t div_vec3(vec3_t A, vec3_t B){
-    vec3_t C ={A.x / B.x, A.y / B.y, A.z / B.z};
-    return C;
-}
-vec3_t sub_vec3(vec3_t A, vec3_t B){
-    vec3_t C ={A.x - B.x, A.y - B.y, A.z - B.z};
-    return C;
-}
-vec3_t mul_vec3(vec3_t A, vec3_t B){
-    vec3_t C ={A.x * B.x, A.y * B.y, A.z * B.z};
-    return C;
-}
-vec2_t mul_vec2(vec2_t A, vec2_t B){
-    vec2_t C ={A.x * B.x, A.y * B.y};
-    return C;
-}
-vec3_t move_vec3(vec3_t position, vec3_t movement)
+void mul_Matrix3x3( float mtx1[3][3], float mtx2[3][3], float mtxres[3][3] )
 {
-    vec3_t C = {
-    position.x + movement.x,
-    position.y + movement.y,
-    position.z + movement.z};
-    return C;
+    mtxres[0][0] = mtx1[0][0] * mtx2[0][0] + mtx1[0][1] * mtx2[1][0] +
+				mtx1[0][2] * mtx2[2][0];
+	mtxres[0][1] = mtx1[0][0] * mtx2[0][1] + mtx1[0][1] * mtx2[1][1] +
+				mtx1[0][2] * mtx2[2][1];
+	mtxres[0][2] = mtx1[0][0] * mtx2[0][2] + mtx1[0][1] * mtx2[1][2] +
+				mtx1[0][2] * mtx2[2][2];
+	mtxres[1][0] = mtx1[1][0] * mtx2[0][0] + mtx1[1][1] * mtx2[1][0] +
+				mtx1[1][2] * mtx2[2][0];
+	mtxres[1][1] = mtx1[1][0] * mtx2[0][1] + mtx1[1][1] * mtx2[1][1] +
+				mtx1[1][2] * mtx2[2][1];
+	mtxres[1][2] = mtx1[1][0] * mtx2[0][2] + mtx1[1][1] * mtx2[1][2] +
+				mtx1[1][2] * mtx2[2][2];
+	mtxres[2][0] = mtx1[2][0] * mtx2[0][0] + mtx1[2][1] * mtx2[1][0] +
+				mtx1[2][2] * mtx2[2][0];
+	mtxres[2][1] = mtx1[2][0] * mtx2[0][1] + mtx1[2][1] * mtx2[1][1] +
+				mtx1[2][2] * mtx2[2][1];
+	mtxres[2][2] = mtx1[2][0] * mtx2[0][2] + mtx1[2][1] * mtx2[1][2] +
+				mtx1[2][2] * mtx2[2][2];
+}
+void mul_Matrix3x3_on_vec3( float mtx[3][3], const vec3_t vec, vec3_t out )
+{
+    out[0] = mtx[1][1] * vec[0] + mtx[1][2] * vec[1] + mtx[1][3] * vec[2];
+    out[1] = mtx[2][1] * vec[0] + mtx[2][2] * vec[1] + mtx[2][3] * vec[2];
+    out[2] = mtx[3][1] * vec[0] + mtx[3][2] * vec[1] + mtx[3][3] * vec[2];
+}
+void sum_vec3( const vec3_t a, const vec3_t b, vec3_t out ) {
+    out[0] = a[0] + b[0];
+    out[1] = a[1] + b[1];
+    out[2] = a[2] + b[2];
+}
+void div_vec3( const vec3_t a, const vec3_t b, vec3_t out ) {
+    out[0] = a[0] / b[0];
+    out[1] = a[1] / b[1];
+    out[2] = a[2] / b[2];
+}
+void sub_vec3( const vec3_t a, const vec3_t b, vec3_t out ) {
+    out[0] = a[0] - b[0];
+    out[1] = a[1] - b[1];
+    out[2] = a[2] - b[2];
+}
+void mul_vec3( const vec3_t a, const vec3_t b, vec3_t out ) {
+    out[0] = a[0] * b[0];
+    out[1] = a[1] * b[1];
+    out[2] = a[2] * b[2];
+}
+void mul_vec2( const vec2_t a, const vec2_t b, vec2_t out ) {
+    out[0] = a[0] * b[0];
+    out[1] = a[1] * b[1];
+}
+void push_vec3 ( vec3_t vec, const vec3_t dist )
+{
+    vec[0] += dist[0];
+    vec[1] += dist[1];
+    vec[2] += dist[2];
+}
+void move_vec3 ( vec3_t vec, const vec3_t coords )
+{
+    vec[0] = coords[0];
+    vec[1] = coords[1];
+    vec[2] = coords[2];
 }

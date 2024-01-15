@@ -22,7 +22,7 @@ void mul_vec3( const vec3_t a, const vec3_t b, vec3_t out );
 void mul_vec2( const vec2_t a, const vec2_t b, vec2_t out );
 
 void copy_vec3  ( const vec3_t it, vec3_t out );
-void rotate_vec3( vec3_t vec, float angle, enum Basis );
+void rotate_vec3( vec3_t vec, float angle, enum Basis basis );
 void move_vec3  ( vec3_t vec, const vec3_t coords );
 void push_vec3  ( vec3_t vec, const vec3_t dist );
 

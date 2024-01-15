@@ -1,30 +1,35 @@
 #include "3d_mach.h"
 
-vec3_t rotate_vec3(vec3_t rotat, float angle, enum Basis basis)
+void rotate_vec3( vec3_t vec, float angle, enum Basis basis )
 {
-    switch (basis)
-    {
-    case Xasis:
-        Matrix3x3_t Xasis = {1,0,         0,
-                           0,cos(angle),-sin(angle),
-                           0,sin(angle),cos(angle)};
-        return mul_Matrix3x3_vec3(&Xasis, &rotat);
-        break;
-    case Zasis:
-        Matrix3x3_t Zasis = {cos(angle),0,sin(angle),
-                           0,         1,         0,
-                          -sin(angle),0,cos(angle)};
-        return mul_Matrix3x3_vec3(&Zasis, &rotat);
-        break;
-    case Yasis:
-        Matrix3x3_t Yasis = {cos(angle),-sin(angle),0,
-                           sin(angle),cos(angle), 0,
-                           0,         0,          1};
-        return mul_Matrix3x3_vec3(&Yasis, &rotat);
-        break;
-    default:
-        break;
-    }
+  switch (basis) {
+  case basis.Xasis:
+    vec3_t[3] Xasis;
+    Xasis[0] = { 1, 0,          0           };
+    Xasis[1] = { 0, cos(angle), -sin(angle) };
+    Xasis[2] = { 0, sin(angle), cos(angle)  };
+    mul_Matrix3x3_vec3(Xasis, vec, vec);
+    return;
+  break;
+
+  case basis.Zasis:
+    vec3_t[3] Zasis;
+    Zasis[0] = { cos(angle),  0, sin(angle) };
+    Zasis[1] = { 0,           1, 0          };
+    Zasis[2] = { -sin(angle), 0, cos(angle) };
+    mul_Matrix3x3_vec3(Zasis, vec, vec);
+    return;
+  break;
+
+  case basis.Yasis:
+    vec3_t[3] Yasis;
+    Yasis[0] = { cos(angle), -sin(angle), 0 };
+    Yasis[1] = { sin(angle), cos(angle),  0 };
+    Yasis[2] = { 0,          0,           1 };
+    mul_Matrix3x3_vec3(Yasis, vec, vec);
+    return;
+  break;
+  }
 }
 void mul_Matrix3x3( float mtx1[3][3], float mtx2[3][3], float mtxres[3][3] )
 {

@@ -5,13 +5,14 @@
 
 #include "3d_mach.h"
 
-struct index {
+#define PATH_TO_OBJ_DIR "obj"
+
+typedef struct {
   int a;
   int b;
-};
-typedef struct index index_t;
+} index_t;
 
-struct obj
+typedef struct
 {
   char name[20];
   vec3_t* v;
@@ -19,25 +20,22 @@ struct obj
   int c_v;
   int c_l;
   vec3_t orig;
-};
-typedef struct obj obj_t;
+} obj_t;
 
-struct world {
+typedef struct {
   obj_t* objs;
   int c_objs;
-};
-typedef struct world world_t;
+} world_t;
 
-struct camera {
+typedef struct {
   vec3_t pos;
   vec3_t rotat;
-};
-typedef struct world world_t;
+} camera_t;
 
-void create_world( world_t out );
+world_t* read_obj_dir( void );
 
 void origin_point_obj( const obj_t *entity, vec3_t res );
 
-void move_obj  ( obj_t *entity, const vec3_t coords );
+//void move_obj  ( obj_t *entity, const vec3_t coords );
 void push_obj  ( obj_t *entity, const vec3_t dist );
-void rotate_obj( obj_t *entity, float angle, enum Basis );
+void rotate_obj( obj_t *entity, float angle, enum Basis basis );

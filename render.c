@@ -3,9 +3,8 @@
 void clean_screen( char screen[] ) {
   memset( screen, 32, H_SCREEN * W_SCREEN );
 }
-void print_line2d( const vec2_t a, const vec2_t b, char screen[] );
+void print_line2d( const vec2_t a, const vec2_t b, char screen[] )
 {
-  const int deltaX, deltaY, signX, signY;
   int x1, x2, y1, y2, error, error2;
   
   x1 = ( (int)(  a[0] * W_SCREEN ) + W_SCREEN ) >> 1;
@@ -14,10 +13,10 @@ void print_line2d( const vec2_t a, const vec2_t b, char screen[] );
   y2 = ( (int)( -b[1] * H_SCREEN ) + H_SCREEN ) >> 1;
   if ( x1 > W_SCREEN || x2 > W_SCREEN || y1 > H_SCREEN || y2 > H_SCREEN )
     return;
-  deltaX = abs( x2 - x1 );
-  deltaY = abs( y2 - y1 );
-  signX = x1 < x2 ? 1 : -1;
-  signY = y1 < y2 ? 1 : -1;
+  const int deltaX = abs( x2 - x1 );
+  const int deltaY = abs( y2 - y1 );
+  const int signX = x1 < x2 ? 1 : -1;
+  const int signY = y1 < y2 ? 1 : -1;
   error = deltaX - deltaY;
   screen[ x2 + y2 * W_SCREEN ] = '#';
   for(;x1 != x2 || y1 != y2;) {

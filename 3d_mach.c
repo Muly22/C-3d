@@ -3,31 +3,28 @@
 void rotate_vec3( vec3_t vec, float angle, enum Basis basis )
 {
   switch (basis) {
-  case basis.Xasis:
-    vec3_t[3] Xasis;
-    Xasis[0] = { 1, 0,          0           };
-    Xasis[1] = { 0, cos(angle), -sin(angle) };
-    Xasis[2] = { 0, sin(angle), cos(angle)  };
-    mul_Matrix3x3_vec3(Xasis, vec, vec);
-    return;
+  case Xasis:
+    vec3_t Xasisv[3] = {
+    { 1, 0,          0           },
+    { 0, cos(angle), -sin(angle) },
+    { 0, sin(angle), cos(angle)  }};
+    mul_Matrix3x3_vec3(Xasisv, vec, vec);
   break;
 
-  case basis.Zasis:
-    vec3_t[3] Zasis;
-    Zasis[0] = { cos(angle),  0, sin(angle) };
-    Zasis[1] = { 0,           1, 0          };
-    Zasis[2] = { -sin(angle), 0, cos(angle) };
-    mul_Matrix3x3_vec3(Zasis, vec, vec);
-    return;
+  case Zasis:
+    vec3_t Zasisv[3] = {
+    { cos(angle),  0, sin(angle) },
+    { 0,           1, 0          },
+    { -sin(angle), 0, cos(angle) }};
+    mul_Matrix3x3_vec3(Zasisv, vec, vec);
   break;
 
-  case basis.Yasis:
-    vec3_t[3] Yasis;
-    Yasis[0] = { cos(angle), -sin(angle), 0 };
-    Yasis[1] = { sin(angle), cos(angle),  0 };
-    Yasis[2] = { 0,          0,           1 };
-    mul_Matrix3x3_vec3(Yasis, vec, vec);
-    return;
+  case Yasis:
+    vec3_t Yasisv[3] = {
+    { cos(angle), -sin(angle), 0 },
+    { sin(angle), cos(angle),  0 },
+    { 0,          0,           1 }};
+    mul_Matrix3x3_vec3(Yasisv, vec, vec);
   break;
   }
 }

@@ -5,27 +5,27 @@ static obj_t read_obj( char *path );
 void origin_point_obj( const obj_t *entity, vec3_t res )
 {
   vec3_t origin;
-  for (size_t i = 0; i < my_obj->c_v; i++) {
-    origin = sum_vec3(origin,my_obj->v[i]);
+  for (size_t i = 0; i < entity->c_v; i++) {
+    sum_vec3(origin,entity->v[i], origin);
   }
-  origin.x /= my_obj->c_v;
-  origin.y /= my_obj->c_v;
-  origin.z /= my_obj->c_v;
+  origin[0] /= entity->c_v;
+  origin[1] /= entity->c_v;
+  origin[2] /= entity->c_v;
   return origin;
 }
 
 void rotate_obj( obj_t *entity, float angle, enum Basis basis )
 {
-  for (size_t i = 0; i < my_obj->c_v; i++) {
+  for (size_t i = 0; i < entity->c_v; i++) {
     vec3_t tmp;
-    sub_vec3( my_obj->v[i], my_obj->orig, tmp );
+    sub_vec3( entity->v[i], entity->orig, tmp );
     rotate_vec3( tmp, angle, basis );
-    sum_vec3( tmp, my_obj->orig, my_obj->v[i] );
+    sum_vec3( tmp, entity->orig, entity->v[i] );
   }
 }
 void push_obj  ( obj_t *entity, const vec3_t dist ) {
-  for (size_t i = 0; i < my_obj->c_v; i++) {
-    entity->v[i] = push_vec3( entity->v[i], dist );
+  for (size_t i = 0; i < entity->c_v; i++) {
+    push_vec3( entity->v[i], dist );
   }
 }
 
@@ -34,7 +34,7 @@ static obj_t read_obj( char* path )
     obj_t new_obj;
     new_obj.v = NULL;
     new_obj.l = NULL;
-    FILE* fp = fopen(ref, "r");
+    FILE* fp = fopen(path, "r");
     char buff[10000][200];
     if (fp) {
         int i = 0;
@@ -82,7 +82,7 @@ static obj_t read_obj( char* path )
         new_obj.c_l = l;
         new_obj.c_v = v;
     }
-    origin_point_obj(new_obj, new_obj.orig);
+    origin_point_obj(&new_obj, new_obj.orig);
     return new_obj;
 }
 

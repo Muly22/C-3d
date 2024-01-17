@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "render.h": "c",
-        "vec2.h": "c"
+        "vec2.h": "c",
+        "cmath": "c"
     }
 }

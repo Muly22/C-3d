@@ -1,4 +1,4 @@
-#include "3d_mach.h";
+#include "3d_mach.h"
 #include "world.h"
 
 #define H_SCREEN 30

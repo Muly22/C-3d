@@ -1,14 +1,14 @@
 #include "3d_mach.h"
 
-void rotate_vec3( vec3_t vec, float angle, enum Basis basis )
+void rotate_vec3( vec3_t vec, float angle, Basis_t basis )
 {
   switch (basis) {
-  case Xasis:
+  case 0:
     vec3_t Xasisv[3] = {
     { 1, 0,          0           },
     { 0, cos(angle), -sin(angle) },
     { 0, sin(angle), cos(angle)  }};
-    mul_Matrix3x3_vec3(Xasisv, vec, vec);
+    mul_Matrix3x3_on_vec3(Xasisv, vec, vec);
   break;
 
   case Zasis:
@@ -16,7 +16,7 @@ void rotate_vec3( vec3_t vec, float angle, enum Basis basis )
     { cos(angle),  0, sin(angle) },
     { 0,           1, 0          },
     { -sin(angle), 0, cos(angle) }};
-    mul_Matrix3x3_vec3(Zasisv, vec, vec);
+    mul_Matrix3x3_on_vec3(Zasisv, vec, vec);
   break;
 
   case Yasis:
@@ -24,7 +24,7 @@ void rotate_vec3( vec3_t vec, float angle, enum Basis basis )
     { cos(angle), -sin(angle), 0 },
     { sin(angle), cos(angle),  0 },
     { 0,          0,           1 }};
-    mul_Matrix3x3_vec3(Yasisv, vec, vec);
+    mul_Matrix3x3_on_vec3(Yasisv, vec, vec);
   break;
   }
 }

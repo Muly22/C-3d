@@ -7,12 +7,12 @@
 
 #define PATH_TO_OBJ_DIR "obj"
 
-typedef struct {
+extern struct index {
   int a;
   int b;
-} index_t;
-
-typedef struct
+};
+typedef struct index index_t;
+extern struct obj
 {
   char name[20];
   vec3_t* v;
@@ -20,17 +20,18 @@ typedef struct
   int c_v;
   int c_l;
   vec3_t orig;
-} obj_t;
-
-typedef struct {
+};
+typedef struct obj obj_t;
+extern struct world {
   obj_t* objs;
   int c_objs;
-} world_t;
-
-typedef struct {
+};
+typedef struct world world_t;
+extern struct camera {
   vec3_t pos;
   vec3_t rotat;
-} camera_t;
+};
+typedef struct camera camera_t;
 
 world_t* read_obj_dir( void );
 
@@ -38,4 +39,4 @@ void origin_point_obj( const obj_t *entity, vec3_t res );
 
 //void move_obj  ( obj_t *entity, const vec3_t coords );
 void push_obj  ( obj_t *entity, const vec3_t dist );
-void rotate_obj( obj_t *entity, float angle, enum Basis basis );
+void rotate_obj( obj_t *entity, float angle, Basis_t basis );

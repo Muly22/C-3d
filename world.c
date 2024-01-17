@@ -4,17 +4,15 @@ static obj_t read_obj( char *path );
 
 void origin_point_obj( const obj_t *entity, vec3_t res )
 {
-  vec3_t origin;
   for (size_t i = 0; i < entity->c_v; i++) {
-    sum_vec3(origin,entity->v[i], origin);
+    sum_vec3(res, entity->v[i], res);
   }
-  origin[0] /= entity->c_v;
-  origin[1] /= entity->c_v;
-  origin[2] /= entity->c_v;
-  return origin;
+  res[0] /= entity->c_v;
+  res[1] /= entity->c_v;
+  res[2] /= entity->c_v;
 }
 
-void rotate_obj( obj_t *entity, float angle, enum Basis basis )
+void rotate_obj( obj_t *entity, float angle, Basis_t basis )
 {
   for (size_t i = 0; i < entity->c_v; i++) {
     vec3_t tmp;
@@ -34,6 +32,7 @@ static obj_t read_obj( char* path )
     obj_t new_obj;
     new_obj.v = NULL;
     new_obj.l = NULL;
+    memset( new_obj.orig, 0, sizeof(vec3_t) );
     FILE* fp = fopen(path, "r");
     char buff[10000][200];
     if (fp) {

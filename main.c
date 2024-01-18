@@ -32,7 +32,7 @@ int main(int argc, char* argv[]){
             obj_t* obj_t = &myworld->objs[i];
             for (size_t l = 0; l < obj_t->c_l; l++)
             {
-                print_line2d(&vecarr[obj_t->l[l].a], &vecarr[obj_t->l[l].b], screen );
+                print_line2d(vecarr[obj_t->l[l].a], vecarr[obj_t->l[l].b], screen );
             }
         }
         puts( screen );

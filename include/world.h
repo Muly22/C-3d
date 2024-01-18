@@ -6,33 +6,33 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "3d_mach.h"
+#include "include/3d_mach.h"
 
 #define PATH_TO_OBJ_DIR "obj"
 
 struct index {
-  int a;
-  int b;
+    int a;
+    int b;
 };
 typedef struct index index_t;
 struct obj
 {
-  char name[20];
-  vec3_t* v;
-  index_t* l;
-  int c_v;
-  int c_l;
-  vec3_t orig;
+    char name[20];
+    vec3_t* v;
+    index_t* l;
+    int c_v;
+    int c_l;
+    vec3_t orig;
 };
 typedef struct obj obj_t;
 struct world {
-  obj_t* objs;
-  int c_objs;
+    obj_t* objs;
+    int c_objs;
 };
 typedef struct world world_t;
 struct camera {
-  vec3_t pos;
-  vec3_t rotat;
+    vec3_t pos;
+    vec3_t rotat;
 };
 typedef struct camera camera_t;
 

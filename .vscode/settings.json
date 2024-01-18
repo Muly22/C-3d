@@ -2,6 +2,8 @@
     "files.associations": {
         "render.h": "c",
         "vec2.h": "c",
-        "cmath": "c"
+        "cmath": "c",
+        "3d_mach.h": "c",
+        "world.h": "c"
     }
 }

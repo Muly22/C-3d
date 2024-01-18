@@ -1,6 +1,6 @@
 #include "3d_mach.h"
 
-void rotate_vec3( vec3_t vec, float angle, Basis_t basis )
+void rotate_vec3( vec3_t vec, float angle, basis_t basis )
 {
   switch (basis) {
   case 0:

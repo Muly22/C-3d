@@ -12,7 +12,7 @@ void origin_point_obj( const obj_t *entity, vec3_t res )
   res[2] /= entity->c_v;
 }
 
-void rotate_obj( obj_t *entity, float angle, Basis_t basis )
+void rotate_obj( obj_t *entity, float angle, basis_t basis )
 {
   for (size_t i = 0; i < entity->c_v; i++) {
     vec3_t tmp;

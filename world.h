@@ -1,3 +1,6 @@
+#ifndef world_h
+#define world_h
+
 #include <stdio.h>
 #include <dirent.h>
 #include <string.h>
@@ -7,12 +10,12 @@
 
 #define PATH_TO_OBJ_DIR "obj"
 
-extern struct index {
+struct index {
   int a;
   int b;
 };
 typedef struct index index_t;
-extern struct obj
+struct obj
 {
   char name[20];
   vec3_t* v;
@@ -22,12 +25,12 @@ extern struct obj
   vec3_t orig;
 };
 typedef struct obj obj_t;
-extern struct world {
+struct world {
   obj_t* objs;
   int c_objs;
 };
 typedef struct world world_t;
-extern struct camera {
+struct camera {
   vec3_t pos;
   vec3_t rotat;
 };
@@ -39,4 +42,6 @@ void origin_point_obj( const obj_t *entity, vec3_t res );
 
 //void move_obj  ( obj_t *entity, const vec3_t coords );
 void push_obj  ( obj_t *entity, const vec3_t dist );
-void rotate_obj( obj_t *entity, float angle, Basis_t basis );
+void rotate_obj( obj_t *entity, float angle, basis_t basis );
+
+#endif

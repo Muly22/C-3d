@@ -1,15 +1,17 @@
+#ifndef user_h
+#define user_h
+
 #include <math.h>
 
-#if !defined M_PI
+#ifndef M_PI
 #define M_PI 3.14159265358979323846f
 #endif
 
-typedef enum {
+typedef enum basis_s {
     Xasis,
     Yasis,
     Zasis
-} Basis_t;
-
+} basis_t;
 /* vectors */
 typedef float vec_t;
 typedef vec_t vec2_t[2];
@@ -24,8 +26,10 @@ void mul_vec3( const vec3_t a, const vec3_t b, vec3_t out );
 void mul_vec2( const vec2_t a, const vec2_t b, vec2_t out );
 
 void copy_vec3  ( const vec3_t it, vec3_t out );
-void rotate_vec3( vec3_t vec, float angle, Basis_t basis );
+void rotate_vec3( vec3_t vec, float angle, basis_t basis );
 void move_vec3  ( vec3_t vec, const vec3_t coords );
 void push_vec3  ( vec3_t vec, const vec3_t dist );
 
 void mul_Matrix3x3_on_vec3( float mtx[3][3], const vec3_t vec, vec3_t out );
+
+#endif

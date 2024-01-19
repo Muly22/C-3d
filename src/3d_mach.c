@@ -79,6 +79,9 @@ void mul_vec2( const vec2_t a, const vec2_t b, vec2_t out ) {
     out[0] = a[0] * b[0];
     out[1] = a[1] * b[1];
 }
+void copy_vec3 ( const vec3_t it, vec3_t out ){
+    memcpy( out, it, sizeof(vec3_t) );
+}
 void push_vec3 ( vec3_t vec, const vec3_t dist )
 {
     vec[0] += dist[0];

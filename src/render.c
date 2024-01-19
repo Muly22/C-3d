@@ -1,7 +1,7 @@
 #include "include/render.h"
 
 void clean_screen( char screen[] ) {
-    memset( screen, 32, H_SCREEN * W_SCREEN );
+    memset( screen, 32, H_SCREEN * W_SCREEN - 1 );
 }
 void print_line2d( const vec2_t a, const vec2_t b, char screen[] )
 {
@@ -32,14 +32,14 @@ void print_line2d( const vec2_t a, const vec2_t b, char screen[] )
         }
     }
 }
-void screen_proection( world_t *myworld, camera_t camera, vec2_t screen[] )
+void screen_proection( world_t *myworld, camera_t *camera, vec2_t screen[] )
 {
     for (size_t i = 0; i < myworld->c_objs; i++) {
         obj_t *entity = &myworld->objs[i];
         vec2_t proection;
         for (size_t v = 0; v < entity->c_v; v++) {
-            proection[0] = entity->v[v][2] / ( entity->v[v][0] - camera.pos[0] );
-            proection[1] = entity->v[v][1] / ( entity->v[v][0] - camera.pos[0] );
+            proection[0] = entity->v[v][2] / ( entity->v[v][0] - camera->pos[0] );
+            proection[1] = entity->v[v][1] / ( entity->v[v][0] - camera->pos[0] );
             screen[ i + v * myworld->c_objs ][0] = proection[0];
             screen[ i + v * myworld->c_objs ][1] = proection[1];
         }

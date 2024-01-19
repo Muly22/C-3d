@@ -1,10 +1,12 @@
+#include <string.h>
+
 #include "include/3d_mach.h"
 
 void rotate_vec3( vec3_t vec, float angle, basis_t basis )
 {
     switch (basis) {
     case 0:
-        vec3_t Xasisv[3] = {
+        float Xasisv[3][3] = {
         { 1, 0,          0           },
         { 0, cos(angle), -sin(angle) },
         { 0, sin(angle), cos(angle)  }};
@@ -12,7 +14,7 @@ void rotate_vec3( vec3_t vec, float angle, basis_t basis )
     break;
 
     case Zasis:
-        vec3_t Zasisv[3] = {
+        float Zasisv[3][3] = {
         { cos(angle),  0, sin(angle) },
         { 0,           1, 0          },
         { -sin(angle), 0, cos(angle) }};
@@ -20,7 +22,7 @@ void rotate_vec3( vec3_t vec, float angle, basis_t basis )
     break;
 
     case Yasis:
-        vec3_t Yasisv[3] = {
+        float Yasisv[3][3] = {
         { cos(angle), -sin(angle), 0 },
         { sin(angle), cos(angle),  0 },
         { 0,          0,           1 }};
@@ -51,9 +53,9 @@ void mul_Matrix3x3( float mtx1[3][3], float mtx2[3][3], float mtxres[3][3] )
 }
 void mul_Matrix3x3_on_vec3( float mtx[3][3], const vec3_t vec, vec3_t out )
 {
-    out[0] = mtx[1][1] * vec[0] + mtx[1][2] * vec[1] + mtx[1][3] * vec[2];
-    out[1] = mtx[2][1] * vec[0] + mtx[2][2] * vec[1] + mtx[2][3] * vec[2];
-    out[2] = mtx[3][1] * vec[0] + mtx[3][2] * vec[1] + mtx[3][3] * vec[2];
+    out[0] = mtx[0][0] * vec[0] + mtx[0][1] * vec[1] + mtx[0][2] * vec[2];
+    out[1] = mtx[1][0] * vec[0] + mtx[1][1] * vec[1] + mtx[1][2] * vec[2];
+    out[2] = mtx[2][0] * vec[0] + mtx[2][1] * vec[1] + mtx[2][2] * vec[2];
 }
 void sum_vec3( const vec3_t a, const vec3_t b, vec3_t out ) {
     out[0] = a[0] + b[0];

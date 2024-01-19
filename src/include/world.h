@@ -6,7 +6,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "include/3d_mach.h"
+#include "3d_mach.h"
 
 #define PATH_TO_OBJ_DIR "obj"
 

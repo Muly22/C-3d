@@ -15,19 +15,21 @@ int main(int argc, char* argv[]) {
         sumvec += myworld->objs[i].c_v;
     }
     vecarr = calloc(sumvec, sizeof(vec2_t));
+    memset(vecarr, 0.0f, sumvec * sizeof(vec2_t)),
     getchar();
     float count = 0.1;
     for(;;) {
-        rotate_obj( &myworld->objs[0], count * M_PI/180, Zasis );
         clean_screen( screen );
-        screen_proection( myworld, camera, vecarr );
+        screen_proection( myworld, &camera, vecarr );
         for (size_t i = 0; i < myworld->c_objs; i++) {
             obj_t* obj_t = &myworld->objs[i];
             for (size_t l = 0; l < obj_t->c_l; l++) {
+                //printf("%f %f", vecarr[obj_t->l[l].a], vecarr[obj_t->l[l].b]);
                 print_line2d(vecarr[obj_t->l[l].a], vecarr[obj_t->l[l].b], screen );
             }
         }
         puts( screen );
+        rotate_obj( &myworld->objs[0], count * M_PI/180, Zasis );
     }
 return 0;
 }

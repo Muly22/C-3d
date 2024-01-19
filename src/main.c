@@ -18,13 +18,18 @@ int main(int argc, char* argv[]) {
     memset(vecarr, 0.0f, sumvec * sizeof(vec2_t)),
     getchar();
     float count = 0.1;
+    vec3_t pushdist = {0,0,3};
+    push_obj( &myworld->objs[0], pushdist );
+    origin_point_obj(&myworld->objs[0], myworld->objs[0].orig);
     for(;;) {
+        #ifdef win
+            gotoxy(0, 0);
+        #endif
         clean_screen( screen );
         screen_proection( myworld, &camera, vecarr );
         for (size_t i = 0; i < myworld->c_objs; i++) {
             obj_t* obj_t = &myworld->objs[i];
             for (size_t l = 0; l < obj_t->c_l; l++) {
-                //printf("%f %f", vecarr[obj_t->l[l].a], vecarr[obj_t->l[l].b]);
                 print_line2d(vecarr[obj_t->l[l].a], vecarr[obj_t->l[l].b], screen );
             }
         }

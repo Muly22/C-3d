@@ -3,9 +3,9 @@
 
 #include "3d_mach.h"
 #include "world.h"
-
+#define win
 /* console window resolution */
-#define H_SCREEN 29
+#define H_SCREEN 49
 #define W_SCREEN 120
 
 /* filling the screen buffer with spaces */
@@ -16,5 +16,11 @@ void screen_proection( world_t *myworld, camera_t *camera, vec2_t screen[] );
 
 /* drawing lines on the screen buffer */
 void print_line2d( const vec2_t a, const vec2_t b, char screen[] );
+
+
+#ifdef win
+#include <windows.h>
+void gotoxy(int x, int y);
+#endif
 
 #endif

@@ -43,5 +43,6 @@ void origin_point_obj( const obj_t *entity, vec3_t res );
 //void move_obj  ( obj_t *entity, const vec3_t coords );
 void push_obj  ( obj_t *entity, const vec3_t dist );
 void rotate_obj( obj_t *entity, float angle, basis_t basis );
+void rotate_cam_on_orig( camera_t *cam, float angle, basis_t basis );
 
 #endif

@@ -22,6 +22,14 @@ void rotate_obj( obj_t *entity, float angle, basis_t basis )
         sum_vec3( tmp, entity->orig, entity->v[i] );
     }
 }
+void rotate_cam_on_orig( camera_t *cam, float angle, basis_t basis )
+{
+    vec3_t tmp;
+    vec3_t orig = {0,0,0};
+    sub_vec3( cam->pos, orig, tmp );
+    rotate_vec3( tmp, angle, basis );
+    sum_vec3( tmp, orig, cam->pos );
+}
 void push_obj  ( obj_t *entity, const vec3_t dist ) {
     for (size_t i = 0; i < entity->c_v; i++) {
         push_vec3( entity->v[i], dist );

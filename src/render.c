@@ -48,8 +48,12 @@ void screen_proection( world_t *myworld, camera_t *camera, vec2_t screen[] )
         for (size_t v = 0; v < entity->c_v; v++) {
             vec3_t subpos;
             sub_vec3(entity->v[v], camera->pos, subpos);
-            screen[ i + v * myworld->c_objs ][0] = ( subpos[0] ) / ( subpos[2] );
-            screen[ i + v * myworld->c_objs ][1] = ( subpos[1] ) / ( subpos[2] );
+            rotate_vec3( subpos,camera->target[0] * M_PI/180, Xasis ); 
+            rotate_vec3( subpos,camera->target[1] * M_PI/180, Yasis );
+            rotate_vec3( subpos,camera->target[2] * M_PI/180, Zasis );
+            //mul_vec3(subpos, camera->pos, subpos);
+            screen[ i + v * myworld->c_objs ][0] = -( subpos[0] ) / ( subpos[2] );
+            screen[ i + v * myworld->c_objs ][1] = -( subpos[1] ) / ( subpos[2] );
         }
     }
 }

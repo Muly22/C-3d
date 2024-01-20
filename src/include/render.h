@@ -5,8 +5,8 @@
 #include "world.h"
 #define win
 /* console window resolution */
-#define H_SCREEN 49
-#define W_SCREEN 120
+#define H_SCREEN 149
+#define W_SCREEN 250
 
 /* filling the screen buffer with spaces */
 void clean_screen( char screen[] );

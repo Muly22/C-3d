@@ -1,7 +1,6 @@
 #include "include/render.h"
 
 #ifdef win
-#include <windows.h>
 void gotoxy(int x, int y) {
     COORD coord;
     coord.X = x;
@@ -21,10 +20,6 @@ void print_line2d( const vec2_t a, const vec2_t b, char screen[] )
     x2 = ( (int)(  b[0] * W_SCREEN ) + W_SCREEN ) >> 1;
     y1 = ( (int)( -a[1] * H_SCREEN ) + H_SCREEN ) >> 1;
     y2 = ( (int)( -b[1] * H_SCREEN ) + H_SCREEN ) >> 1;
-    if(x1 >= W_SCREEN || x2 >= W_SCREEN) {
-        /* ((y2 - y1) * ((w - x1)/(x2 - (w - x1)))) + y1 */
-    }
-    
     if ((x1 >= W_SCREEN || x2 >= W_SCREEN) || (y1 >= H_SCREEN || y2 >= H_SCREEN) || (x1 < 0 || x2 < 0) || (y1 < 0 || y2 < 0))
         return;
     const int deltaX = abs( x2 - x1 );
@@ -50,12 +45,11 @@ void screen_proection( world_t *myworld, camera_t *camera, vec2_t screen[] )
 {
     for (size_t i = 0; i < myworld->c_objs; i++) {
         obj_t *entity = &myworld->objs[i];
-        vec2_t proection;
         for (size_t v = 0; v < entity->c_v; v++) {
-            proection[0] = entity->v[v][2] / ( entity->v[v][0] - camera->pos[0] );
-            proection[1] = entity->v[v][1] / ( entity->v[v][0] - camera->pos[0] );
-            screen[ i + v * myworld->c_objs ][0] = proection[0];
-            screen[ i + v * myworld->c_objs ][1] = proection[1];
+            vec3_t subpos;
+            sub_vec3(entity->v[v], camera->pos, subpos);
+            screen[ i + v * myworld->c_objs ][0] = ( subpos[0] ) / ( subpos[2] );
+            screen[ i + v * myworld->c_objs ][1] = ( subpos[1] ) / ( subpos[2] );
         }
     }
 }

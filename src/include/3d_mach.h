@@ -31,11 +31,11 @@ void mul_vec3( const vec3_t a, const vec3_t b, vec3_t out );
 void mul_vec2( const vec2_t a, const vec2_t b, vec2_t out );
 
 /* vector interaction */
-void copy_vec3  ( const vec3_t it, vec3_t out );
+void copy_vec3  ( vec3_t changed, const vec3_t source );
 void rotate_vec3( vec3_t vec, float angle, basis_t basis );
 void move_vec3  ( vec3_t vec, const vec3_t coords );
 void push_vec3  ( vec3_t vec, const vec3_t dist );
-
+void norm_vec3  ( vec3_t vec );
 /* multiplication matrix 3x3 on vector 3 */
 void mul_Matrix3x3_on_vec3( float mtx[3][3], const vec3_t vec, vec3_t out );
 

@@ -27,7 +27,6 @@ void push_obj  ( obj_t *entity, const vec3_t dist ) {
         push_vec3( entity->v[i], dist );
     }
 }
-
 static obj_t read_obj( char* path )
 {
     obj_t new_obj;
@@ -90,7 +89,6 @@ static obj_t read_obj( char* path )
     }
     return new_obj;
 }
-
 world_t* read_obj_dir( void )
 { 
     char pach[255];
@@ -103,6 +101,7 @@ world_t* read_obj_dir( void )
     if ((dir = opendir(pach)) != NULL) {
         int count = 0;
         for(;(ent = readdir(dir)) != NULL;) {
+            strcpy(pach , PATH_TO_OBJ_DIR );
             if(ent->d_name[0] == '.')
                 continue;
             strcat(pach, "/");

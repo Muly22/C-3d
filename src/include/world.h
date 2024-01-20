@@ -32,7 +32,7 @@ struct world {
 typedef struct world world_t;
 struct camera {
     vec3_t pos;
-    vec3_t rotat;
+    vec3_t target;
 };
 typedef struct camera camera_t;
 

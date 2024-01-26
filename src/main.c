@@ -36,9 +36,9 @@ int main(int argc, char* argv[]) {
         }
         puts( screen );
         rotate_obj( &myworld->objs[0], count * M_PI/180, Zasis );
-        //rotate_cam_on_orig( &camera, count * M_PI/180, Xasis );
-        //camera.target[0] += count;
+        rotate_cam_on_orig( &camera, count * M_PI/180, Xasis );
+        camera.target[0] += count;
         //rotate_vec3_on_ang( camera.target, count * M_PI/180, Zasis );
-    return 0;
     }
+    return 0;
 }

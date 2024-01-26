@@ -2,6 +2,7 @@
 #define user_h
 
 #include <math.h>
+#include <string.h>
 
 #ifndef M_PI
 /* number PI */

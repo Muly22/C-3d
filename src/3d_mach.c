@@ -1,5 +1,3 @@
-#include <string.h>
-
 #include "include/3d_mach.h"
 
 void rotate_vec3( vec3_t vec, float angle, basis_t basis )

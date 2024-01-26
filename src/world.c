@@ -39,7 +39,8 @@ static obj_t read_obj( char* path )
     obj_t new_obj;
     new_obj.v = NULL;
     new_obj.l = NULL;
-    memset( new_obj.orig, 0, sizeof(vec3_t) );
+    memset( new_obj.orig, 0, sizeof( vec3_t ) );
+    
     FILE* fp = fopen(path, "r");
     if (!fp) {
         puts( "failed to open file" );
@@ -51,21 +52,19 @@ static obj_t read_obj( char* path )
         i++;
     }
     fclose(fp);
-    int v = 0;
-    int l = 0;
+    
+    int v = 0, l = 0;
     for (size_t j = 0; j < i; j++) {
-        switch (buff[j][0]) {
-        case '#':
-            break;
+        switch ( buff[j][0] ) {
         case 'o':
-            sscanf(buff[j], "o %s", &new_obj.name);
+            sscanf( buff[j], "o %s", &new_obj.name );
             break;
         case 'v':
             float x;
             float y;
             float z;
-            sscanf(buff[j], "v %f %f %f", &x, &y, &z);
-            new_obj.v = (vec3_t*) realloc((void*)new_obj.v,sizeof(vec3_t) * (v + 1));
+            sscanf( buff[j], "v %f %f %f", &x, &y, &z );
+            new_obj.v = (vec3_t*) realloc( (void*)new_obj.v, sizeof( vec3_t ) * (v + 1) );
             new_obj.v[v][0] = x;
             new_obj.v[v][1] = y;
             new_obj.v[v][2] = z;
@@ -74,9 +73,9 @@ static obj_t read_obj( char* path )
         case 'l':
             int a;
             int b;
-            sscanf(buff[j], "l %i %i", &a, &b);
-            new_obj.l = (index_t*) realloc((void*)new_obj.l,sizeof(index_t) * (l + 1));
-            new_obj.l[l].a = a - 1;
+            sscanf( buff[j], "l %i %i", &a, &b );
+            new_obj.l = (index_t*) realloc( (void*)new_obj.l, sizeof( index_t ) * (l + 1) );
+            new_obj.l[l].a = a - 1; /* subtract 1 since the report starts from zero */
             new_obj.l[l].b = b - 1;
             l++;
             break;
@@ -84,7 +83,7 @@ static obj_t read_obj( char* path )
     }
     new_obj.c_l = l;
     new_obj.c_v = v;
-    origin_point_obj(&new_obj, new_obj.orig);
+    origin_point_obj( &new_obj, new_obj.orig );
     return new_obj;
 }
 world_t* read_obj_dir( void )
@@ -102,15 +101,15 @@ world_t* read_obj_dir( void )
     struct dirent *ent;
     int count = 0;
     for (; (ent = readdir(dir)) != NULL ;) {
-        strcpy(pach , PATH_TO_OBJ_DIR );
+        strcpy( pach, PATH_TO_OBJ_DIR );
         if (ent->d_name[0] == '.')
             continue;
-        strcat(pach, "/");
-        strcat(pach, ent->d_name);
-        printf("loading %s...\n",ent->d_name);
+        strcat( pach, "/" );
+        strcat( pach, ent->d_name );
+            printf("loading %s...\n",ent->d_name);
         obj_t new_obj = read_obj(pach);
-        printf("loaded %s { name: %s vertices: %i edges: %i}\n",ent->d_name,new_obj.name, new_obj.c_v,new_obj.c_l);
-        new_world.objs = (obj_t*) realloc((void*)new_world.objs,sizeof(obj_t) * (count + 1));
+            printf("loaded %s { name: %s vertices: %i edges: %i}\n",ent->d_name,new_obj.name, new_obj.c_v,new_obj.c_l);
+        new_world.objs = (obj_t*) realloc( (void*)new_world.objs, sizeof( obj_t ) * (count + 1) );
         new_world.objs[count] = new_obj;
         count++;
         }

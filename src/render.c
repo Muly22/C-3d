@@ -1,12 +1,14 @@
 #include "include/render.h"
 
 #ifdef win
+
 void gotoxy(int x, int y) {
     COORD coord;
     coord.X = x;
     coord.Y = y;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
+
 #endif
 
 void clean_screen( char screen[] ) {
@@ -28,14 +30,14 @@ void print_line2d( const vec2_t a, const vec2_t b, char screen[] )
     const int signY = y1 < y2 ? 1 : -1;
     error = deltaX - deltaY;
     screen[ x2 + y2 * W_SCREEN ] = '#';
-    for(;x1 != x2 || y1 != y2;) {
+    for (; x1 != x2 || y1 != y2 ;) {
         screen[ x1 + y1 * W_SCREEN ] = '#';
         error2 = error * 2;
-        if( error2 > -deltaY ) {
+        if ( error2 > -deltaY ) {
         error -= deltaY;
         x1    += signX;
         }
-        if( error2 < deltaX ) {
+        if ( error2 < deltaX ) {
             error += deltaX;
             y1    += signY;
         }

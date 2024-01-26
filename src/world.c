@@ -93,7 +93,7 @@ world_t* read_obj_dir( void )
     static world_t new_world;
     new_world.objs = NULL;
     new_world.c_objs = 0;
-    DIR *dir = opendir(pach));
+    DIR *dir = opendir(pach);
     if ( dir==NULL ) {
         puts( "failed to open directory: obj" );
         return &new_world;
@@ -112,10 +112,9 @@ world_t* read_obj_dir( void )
         new_world.objs = (obj_t*) realloc( (void*)new_world.objs, sizeof( obj_t ) * (count + 1) );
         new_world.objs[count] = new_obj;
         count++;
-        }
+    }
     closedir(dir);
     new_world.c_objs = count;
-    }
     for (size_t i = 0; i < new_world.c_objs; i++) {
         printf("name: %s vertices: %i edges: %i\n",new_world.objs[i].name, new_world.objs[i].c_v,new_world.objs[i].c_l);
         for (size_t v = 0; v < new_world.objs[i].c_v; v++)
